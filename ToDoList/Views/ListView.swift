@@ -10,8 +10,9 @@ struct ListView: View {
                 ForEach(listViewModel.items) { item in
                     ListRowView(item: item)
                         .onTapGesture {
-                            withAnimation {
-                                // Handle tap gesture (e.g., show details or perform an action)
+                            withAnimation(.linear) {
+                                // Handle tap gesture
+                                listViewModel.updateItem(item: item)
                             }
                         }
                 }
