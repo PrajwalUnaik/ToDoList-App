@@ -9,19 +9,26 @@ import SwiftUI
 
 struct AddView: View {
     
+    // MARK: - Properties
+    
     @Environment(\.presentationMode) var presentationMode
-    @EnvironmentObject var listViewModel : ListViewModel
+    @EnvironmentObject var listViewModel: ListViewModel
     @State var textFieldText: String = ""
+    
+    // MARK: - Body
+    
     var body: some View {
         ScrollView {
             VStack {
-                TextField("Type Something here ..." , text: $textFieldText)
+                // Textfield for user input
+                TextField("Type Something here ...", text: $textFieldText)
                     .padding(.horizontal)
                     .frame(height: 55)
                     .background(Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)))
                     .cornerRadius(10)
                 
-                Button (action :saveButtonPress ,label: {
+                // Button to save the entered item
+                Button(action: saveButtonPress) {
                     Text("Save".uppercased())
                         .foregroundStyle(Color.white)
                         .font(.headline)
@@ -29,13 +36,16 @@ struct AddView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color.accentColor)
                         .cornerRadius(10)
-                })
-
+                }
+                
             }.padding(14)
         }.navigationTitle("Add an Item 🖊️")
     }
     
-    func saveButtonPress(){
+    // MARK: - Save Button Action
+    
+    /// Function to handle the save button press
+    func saveButtonPress() {
         listViewModel.addItem(title: textFieldText)
         presentationMode.wrappedValue.dismiss()
     }
@@ -43,7 +53,7 @@ struct AddView: View {
 }
 
 #Preview {
-    NavigationView{
+    NavigationView {
         AddView()
     }.environmentObject(ListViewModel())
 }

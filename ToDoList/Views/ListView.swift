@@ -2,37 +2,33 @@ import SwiftUI
 
 struct ListView: View {
     
-    @EnvironmentObject var listViewModel : ListViewModel
-    
+    @EnvironmentObject var listViewModel: ListViewModel
     
     var body: some View {
         ZStack {
-            List{
+            List {
                 ForEach(listViewModel.items) { item in
                     ListRowView(item: item)
                         .onTapGesture {
                             withAnimation {
-                                //
+                                // Handle tap gesture (e.g., show details or perform an action)
                             }
                         }
                 }
-                .onDelete(perform: listViewModel.deleteItem)
-                .onMove(perform: listViewModel.moveItem)
+                .onDelete(perform: listViewModel.deleteItem) // Swipe to delete
+                .onMove(perform: listViewModel.moveItem) // Reorder items
             }.listStyle(.plain)
-                .navigationTitle("ToDo List 📝")
-                .navigationBarItems(
-                    leading: EditButton(),
-                    trailing:
-                        NavigationLink("Add", destination:AddView())
-                )
+            .navigationTitle("ToDo List 📝") // Set navigation title
+            .navigationBarItems(
+                leading: EditButton(), // Edit button for reordering and deletion
+                trailing: NavigationLink("Add", destination: AddView()) // Navigation link to AddView for adding new items
+            )
         }
     }
 }
 
 #Preview {
-    NavigationView{
+    NavigationView {
         ListView()
-    }.environmentObject(ListViewModel())
+    }.environmentObject(ListViewModel()) // Inject ListViewModel as environment object
 }
-
-
