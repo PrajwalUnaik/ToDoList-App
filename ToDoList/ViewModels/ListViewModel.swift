@@ -1,12 +1,10 @@
-//
 //  ListViewModel.swift
 //  ToDoList
 //
 //  Created by Prajwal U on 15/01/24.
-//
+
 
 import Foundation
-
 
 /*
  CRUD Functions
@@ -18,9 +16,15 @@ import Foundation
 
 class ListViewModel: ObservableObject {
     
-    @Published var items: [ItemModel] = []
+    @Published var items: [ItemModel] = []{
+        didSet{
+            saveItem()
+        }
+    }
     
-    // MARK: - Initialization
+    let ItemKey = "items_list"
+    
+    // MARK: - Initializati
     
     init() {
         getItem()
@@ -30,12 +34,14 @@ class ListViewModel: ObservableObject {
     
     /// Fetch initial data for the list.
     func getItem() {
-        let newItems = [
-            ItemModel(title: "First one", isCompleted: true),
-            ItemModel(title: "Second toDo", isCompleted: true),
-            ItemModel(title: "Third toDo", isCompleted: false)
-        ]
-        items.append(contentsOf: newItems)
+        
+        guard
+            let data = UserDefaults.standard.data(forKey: ItemKey),
+            let savedItems = try? JSONDecoder().decode([ItemModel].self, from: data)
+        else { return }
+        
+        self.items = savedItems
+        
     }
     
     // MARK: - List Actions
@@ -61,6 +67,11 @@ class ListViewModel: ObservableObject {
         if let index = items.firstIndex(where:  {$0.id == item.id} )
         {
             items[index] = item.updateCompletion()
+        }}
+    
+    func saveItem(){
+        if let encodedData = try? JSONEncoder().encode(items){
+            UserDefaults.standard.setValue(encodedData, forKey: ItemKey)
         }
     }
 }
