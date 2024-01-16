@@ -21,10 +21,10 @@ struct AddView: View {
         ScrollView {
             VStack {
                 // Textfield for user input
-                TextField("Type Something here ...", text: $textFieldText)
+                TextField("Type your ToDo here ...", text: $textFieldText)
                     .padding(.horizontal)
                     .frame(height: 55)
-                    .background(Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)))
+                    .background(Color(UIColor.systemBackground))
                     .cornerRadius(10)
                 
                 // Button to save the entered item
@@ -39,7 +39,7 @@ struct AddView: View {
                 }
                 
             }.padding(14)
-        }.navigationTitle("Add an Item 🖊️")
+        }.navigationTitle("Add a ToDo 🖊️")
     }
     
     // MARK: - Save Button Action

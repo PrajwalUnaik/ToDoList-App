@@ -14,7 +14,7 @@ struct NoItemsView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text("No items found!")
+                Text("No ToDo found!")
                     .font(.title)
                     .fontWeight(.bold)
                     .padding()
@@ -24,7 +24,7 @@ struct NoItemsView: View {
                     .padding(20)
 
                 NavigationLink(destination: AddView()) {
-                    Text("Add your first ToDo")
+                    Text("Add a new ToDo Mate")
                         .shadow(radius: 10)
                         .foregroundStyle(Color.white)
                         .font(.headline)
